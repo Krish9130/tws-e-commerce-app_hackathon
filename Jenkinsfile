@@ -8,7 +8,7 @@ pipeline {
         DOCKER_IMAGE_NAME = 'krish9130/easyshop-app'
         DOCKER_MIGRATION_IMAGE_NAME = 'krish9130/easyshop-migration'
         DOCKER_IMAGE_TAG = "${BUILD_NUMBER}"
-        GITHUB_CREDENTIALS = credentials('git-credential')
+        GITHUB_CREDENTIALS = credentials('github-credentials')
         GIT_BRANCH = "main"
     }
     
@@ -86,7 +86,7 @@ pipeline {
                             docker_push(
                                 imageName: env.DOCKER_IMAGE_NAME,
                                 imageTag: env.DOCKER_IMAGE_TAG,
-                                credentials: 'dockerhub-id'
+                                credentials: 'docker-hub-credentials'
                             )
                         }
                     }
@@ -98,7 +98,7 @@ pipeline {
                             docker_push(
                                 imageName: env.DOCKER_MIGRATION_IMAGE_NAME,
                                 imageTag: env.DOCKER_IMAGE_TAG,
-                                credentials: 'dockerhub-id'
+                                credentials: 'docker-hub-credentials'
                             )
                         }
                     }
@@ -113,7 +113,7 @@ pipeline {
                     update_k8s_manifests(
                         imageTag: env.DOCKER_IMAGE_TAG,
                         manifestsPath: 'kubernetes',
-                        gitCredentials: 'git-credentials',
+                        gitCredentials: 'github-credentials',
                         gitUserName: 'Jenkins CI',
                         gitUserEmail: 'sonawanekrishna9130@gmail.com'
                     )
