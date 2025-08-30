@@ -67,7 +67,7 @@ resource "aws_instance" "testinstance" {
 
 }
 
-resource "aws_eip" "jenkins_server_ip" {
-  instance = aws_instance.testinstance.id
-  domain   = "vpc"
-}
+#resource "aws_eip" "jenkins_server_ip" {
+#  instance = aws_instance.testinstance.id
+#  domain   = "vpc"
+#}
